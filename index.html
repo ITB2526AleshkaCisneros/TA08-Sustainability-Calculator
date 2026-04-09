@@ -1,0 +1,99 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Energy & Sustainability Calculator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <h1>Energy & Sustainability Calculator</h1>
+    <p>Estimate consumption and learn how to reduce it.</p>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Calculation options</h2>
+
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select id="category">
+          <option value="electricity">Electricity</option>
+          <option value="water">Water</option>
+          <option value="office">Office supplies</option>
+          <option value="cleaning">Cleaning products</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="calcType">Calculation type</label>
+        <select id="calcType">
+          <option value="nextYear">Next year’s approximate consumption</option>
+          <option value="period">Consumption for a selected period</option>
+        </select>
+      </div>
+
+      <div class="form-group period-group">
+        <label>Period (for “selected period”)</label>
+        <div class="period-inputs">
+          <input type="month" id="startPeriod" />
+          <input type="month" id="endPeriod" />
+        </div>
+      </div>
+
+      <button id="calculateBtn" class="btn">Calculate</button>
+    </section>
+
+    <section class="card result-card">
+      <h2>Result</h2>
+      <div id="resultValue" class="result-value">Select options and click “Calculate”.</div>
+      <div id="resultNote" class="result-note"></div>
+    </section>
+
+    <section class="card tips-card">
+      <h2>How to reduce consumption</h2>
+
+      <div id="tipsElectricity" class="tips hidden">
+        <h3>Electricity</h3>
+        <ul>
+          <li>Turn off unused equipment</li>
+          <li>Optimize AC/heating</li>
+          <li>Use energy‑efficient devices</li>
+        </ul>
+      </div>
+
+      <div id="tipsWater" class="tips hidden">
+        <h3>Water</h3>
+        <ul>
+          <li>Fix leaks quickly</li>
+          <li>Install low‑flow taps</li>
+          <li>Reuse greywater when possible</li>
+        </ul>
+      </div>
+
+      <div id="tipsOffice" class="tips hidden">
+        <h3>Office supplies</h3>
+        <ul>
+          <li>Print only when necessary</li>
+          <li>Use recycled paper</li>
+          <li>Reuse folders and materials</li>
+        </ul>
+      </div>
+
+      <div id="tipsCleaning" class="tips hidden">
+        <h3>Cleaning products</h3>
+        <ul>
+          <li>Buy concentrated products</li>
+          <li>Use refillable containers</li>
+          <li>Optimize cleaning schedules</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>IT Family FP · Sustainability tools</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
