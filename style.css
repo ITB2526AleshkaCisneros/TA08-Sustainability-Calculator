@@ -185,8 +185,6 @@ input[type="month"]:focus {
   align-self: start !important;
 }
 
-
-
 .result-value {
   font-size: 2.4rem;
   font-weight: 700;
@@ -300,3 +298,12 @@ input[type="month"]::-webkit-calendar-picker-indicator {
   opacity: 0.8;
 }
 
+input[disabled],
+select[disabled],
+.disabled-input {
+  background: rgba(30, 41, 59, 0.55) !important;
+  border-color: rgba(148, 163, 184, 0.25) !important;
+  color: rgba(229, 231, 235, 0.45) !important;
+  cursor: not-allowed !important;
+  opacity: 0.7 !important;
+}
