@@ -19,6 +19,77 @@ const baseValues = {
   cleaning: 1500 // € / year (o unidades)
 };
 
+// Factores mensuales por categoría
+const electricityMonthFactor = {
+  1: 1.20, // enero - calefacción
+  2: 1.15, // febrero - calefacción
+  3: 1.00,
+  4: 0.95,
+  5: 1.10, // AC
+  6: 1.15, // AC
+  7: 1.00,
+  8: 1.00,
+  9: 1.10, // AC
+ 10: 1.10, // AC
+ 11: 1.00,
+ 12: 1.20  // diciembre - calefacción
+};
+
+const waterMonthFactor = {
+  1: 0.90,
+  2: 0.90,
+  3: 1.00,
+  4: 1.00,
+  5: 1.10,
+  6: 1.15,
+  7: 1.05,
+  8: 1.05,
+  9: 1.10,
+ 10: 1.10,
+ 11: 1.00,
+ 12: 0.90
+};
+
+const holidayFactor = 0.15; // consumo mínimo (solo datacenter)
+
+function isChristmasHoliday(date) {
+  const m = date.getMonth() + 1;
+  const d = date.getDate();
+
+  // 21 diciembre → 31 diciembre
+  if (m === 12 && d >= 21) return true;
+
+  // 1 enero → 8 enero
+  if (m === 1 && d <= 8) return true;
+
+  return false;
+}
+
+function isHolyWeek(date) {
+  const year = date.getFullYear();
+  const easter = getEasterDate(year);
+
+  // Domingo de Pascua = easter
+  // Lunes de Pascua = easter + 1 día
+  const easterMonday = new Date(easter);
+  easterMonday.setDate(easterMonday.getDate() + 1);
+
+  // Lunes Santo = domingo de Pascua - 6 días
+  const holyMonday = new Date(easter);
+  holyMonday.setDate(holyMonday.getDate() - 6);
+
+  // Para tener 10 días completos en Cataluña:
+  // Empezamos 2 días antes del Lunes Santo → sábado anterior
+  const start = new Date(holyMonday);
+  start.setDate(start.getDate() - 2);
+
+  // Finalizamos el Lunes de Pascua
+  const end = easterMonday;
+
+  return date >= start && date <= end;
+}
+
+
 // Helper: random factor between -range and +range (e.g. 0.05 = ±5%)
 function randomFactor(range) {
   const r = (Math.random() * 2 - 1) * range;
@@ -26,31 +97,34 @@ function randomFactor(range) {
 }
 
 // Apply temporal trends depending on category and period length (months)
-function applyTrends(category, months, isNextYear) {
-  let factor = 1;
+function applyTrends(category, startDate, endDate) {
+  let totalFactor = 0;
+  let days = 0;
 
-  if (category === "electricity") {
-    // +10% winter, -10% summer, ±5% variability
-    factor *= 1.0; // base
-    factor *= randomFactor(0.05);
-  } else if (category === "water") {
-    // +15% summer, -10% winter, ±200L already absorbed in base
-    factor *= randomFactor(0.05);
-  } else if (category === "office") {
-    // +20% school months, -40% holidays
-    factor *= isNextYear ? 1.1 : 1.0;
-  } else if (category === "cleaning") {
-    // +15% high activity
-    factor *= isNextYear ? 1.05 : 1.0;
+  for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+    days++;
+    const month = d.getMonth() + 1;
+
+    // Vacaciones
+    if (isChristmasHoliday(d) || isHolyWeek(d)) {
+      totalFactor += holidayFactor;
+      continue;
+    }
+
+    // Factores por categoría
+    if (category === "electricity") {
+      totalFactor += electricityMonthFactor[month];
+    } else if (category === "water") {
+      totalFactor += waterMonthFactor[month];
+    } else {
+      // categorías sin estacionalidad
+      totalFactor += 1;
+    }
   }
 
-  // Rough scaling by months if period
-  if (!isNextYear && months > 0) {
-    factor *= months / 12;
-  }
-
-  return factor;
+  return totalFactor / days; // media diaria
 }
+
 
 // Show tips depending on category
 function showTips(category) {
@@ -102,8 +176,14 @@ calculateBtn.addEventListener("click", () => {
       return;
     }
 
-    const factor = applyTrends(category, months, false);
-    value = base * factor;
+    const start = new Date(startPeriodInput.value + "-01");
+  const end = new Date(endPeriodInput.value + "-01");
+  end.setMonth(end.getMonth() + 1);
+  end.setDate(0); // último día del mes
+
+  const factor = applyTrends(category, start, end);
+  value = base * (factor * (months / 12));
+
     note = `Estimated consumption for a period of ${months} month(s).`;
   }
 
