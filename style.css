@@ -288,3 +288,11 @@ input[type="month"]:focus {
   letter-spacing: 0.03em;
   opacity: 0.9;
 }
+
+
+
+/* Cambiar color del icono del calendario */
+input[type="month"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.8;
+}
