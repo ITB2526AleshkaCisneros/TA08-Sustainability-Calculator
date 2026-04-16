@@ -14,9 +14,9 @@ const tipsCleaning = document.getElementById("tipsCleaning");
 // Base values (aprox) – puedes ajustarlos si quieres
 const baseValues = {
   electricity: 15000, // kWh / year
-  water: 800000, // L / year
-  office: 2000, // € / year (o unidades)
-  cleaning: 1500 // € / year (o unidades)
+  water: 800000,      // L / year
+  office: 2000,       // € / year (o unidades)
+  cleaning: 1500      // € / year (o unidades)
 };
 
 // Factores mensuales por categoría
@@ -52,6 +52,26 @@ const waterMonthFactor = {
 
 const holidayFactor = 0.15; // consumo mínimo (solo datacenter)
 
+// Algoritmo de Meeus para calcular el domingo de Pascua
+function getEasterDate(year) {
+  const a = year % 19;
+  const b = Math.floor(year / 100);
+  const c = year % 100;
+  const d = Math.floor(b / 4);
+  const e = b % 4;
+  const f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3);
+  const h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4);
+  const k = c % 4;
+  const l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const month = Math.floor((h + l - 7 * m + 114) / 31);
+  const day = ((h + l - 7 * m + 114) % 31) + 1;
+
+  return new Date(year, month - 1, day);
+}
+
 function isChristmasHoliday(date) {
   const m = date.getMonth() + 1;
   const d = date.getDate();
@@ -65,6 +85,7 @@ function isChristmasHoliday(date) {
   return false;
 }
 
+// Semana Santa en Cataluña: 10 días incluyendo Lunes de Pascua
 function isHolyWeek(date) {
   const year = date.getFullYear();
   const easter = getEasterDate(year);
@@ -78,7 +99,6 @@ function isHolyWeek(date) {
   const holyMonday = new Date(easter);
   holyMonday.setDate(holyMonday.getDate() - 6);
 
-  // Para tener 10 días completos en Cataluña:
   // Empezamos 2 días antes del Lunes Santo → sábado anterior
   const start = new Date(holyMonday);
   start.setDate(start.getDate() - 2);
@@ -89,14 +109,13 @@ function isHolyWeek(date) {
   return date >= start && date <= end;
 }
 
-
 // Helper: random factor between -range and +range (e.g. 0.05 = ±5%)
 function randomFactor(range) {
   const r = (Math.random() * 2 - 1) * range;
   return 1 + r;
 }
 
-// Apply temporal trends depending on category and period length (months)
+// Aplica tendencias temporales según categoría y fechas
 function applyTrends(category, startDate, endDate) {
   let totalFactor = 0;
   let days = 0;
@@ -105,26 +124,25 @@ function applyTrends(category, startDate, endDate) {
     days++;
     const month = d.getMonth() + 1;
 
-    // Vacaciones
+    // Vacaciones (Navidad o Semana Santa)
     if (isChristmasHoliday(d) || isHolyWeek(d)) {
       totalFactor += holidayFactor;
       continue;
     }
 
-    // Factores por categoría
     if (category === "electricity") {
       totalFactor += electricityMonthFactor[month];
     } else if (category === "water") {
       totalFactor += waterMonthFactor[month];
     } else {
-      // categorías sin estacionalidad
+      // categorías sin estacionalidad específica
       totalFactor += 1;
     }
   }
 
+  if (days === 0) return 1;
   return totalFactor / days; // media diaria
 }
-
 
 // Show tips depending on category
 function showTips(category) {
@@ -156,16 +174,21 @@ calculateBtn.addEventListener("click", () => {
 
   let value = 0;
   let note = "";
-  let isNextYear = calcType === "nextYear";
 
   if (calcType === "nextYear") {
-    const factor = applyTrends(category, 12, true);
+    // Año completo: de 1 enero a 31 diciembre del año actual
+    const now = new Date();
+    const year = now.getFullYear();
+    const start = new Date(year, 0, 1);
+    const end = new Date(year, 11, 31);
+
+    const factor = applyTrends(category, start, end) * randomFactor(0.05);
     value = base * factor;
-    note = "Estimated annual consumption based on trends and variability.";
+    note = "Estimated annual consumption based on trends, holidays and variability.";
   } else {
-    const start = startPeriodInput.value;
-    const end = endPeriodInput.value;
-    const months = monthsBetween(start, end);
+    const startStr = startPeriodInput.value;
+    const endStr = endPeriodInput.value;
+    const months = monthsBetween(startStr, endStr);
 
     if (!months || months <= 0) {
       resultValue.textContent = "Please select a valid period.";
@@ -177,14 +200,13 @@ calculateBtn.addEventListener("click", () => {
     }
 
     const start = new Date(startPeriodInput.value + "-01");
-  const end = new Date(endPeriodInput.value + "-01");
-  end.setMonth(end.getMonth() + 1);
-  end.setDate(0); // último día del mes
+    const end = new Date(endPeriodInput.value + "-01");
+    end.setMonth(end.getMonth() + 1);
+    end.setDate(0); // último día del mes
 
-  const factor = applyTrends(category, start, end);
-  value = base * (factor * (months / 12));
-
-    note = `Estimated consumption for a period of ${months} month(s).`;
+    const factor = applyTrends(category, start, end) * randomFactor(0.05);
+    value = base * (factor * (months / 12));
+    note = `Estimated consumption for a period of ${months} month(s), considering trends and holidays.`;
   }
 
   const unit =
@@ -205,3 +227,6 @@ calculateBtn.addEventListener("click", () => {
 
   showTips(category);
 });
+
+// (Opcional) Debug: listar vacaciones de un año en consola
+// listHolidaysForYear(2026);
