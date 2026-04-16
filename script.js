@@ -11,6 +11,23 @@ const tipsWater = document.getElementById("tipsWater");
 const tipsOffice = document.getElementById("tipsOffice");
 const tipsCleaning = document.getElementById("tipsCleaning");
 
+// Desactivar/activar selección de meses según tipo de cálculo
+calcTypeSelect.addEventListener("change", () => {
+  const isNextYear = calcTypeSelect.value === "nextYear";
+
+  startPeriodInput.disabled = isNextYear;
+  endPeriodInput.disabled = isNextYear;
+
+  if (isNextYear) {
+    startPeriodInput.classList.add("disabled-input");
+    endPeriodInput.classList.add("disabled-input");
+  } else {
+    startPeriodInput.classList.remove("disabled-input");
+    endPeriodInput.classList.remove("disabled-input");
+  }
+});
+
+
 // Base values (aprox) – puedes ajustarlos si quieres
 const baseValues = {
   electricity: 15000, // kWh / year
