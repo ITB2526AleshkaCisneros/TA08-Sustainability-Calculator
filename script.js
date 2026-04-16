@@ -248,8 +248,8 @@ function updateDateTop() {
     day: "numeric"
   };
 
-  dateElement.textContent = today.toLocaleDateString("en-EN", options);
+  dateElement.textContent = today.toLocaleDateString("es-ES", options);
 }
 
 updateDateTop();
-// listHolidaysForYear(2026);
+
