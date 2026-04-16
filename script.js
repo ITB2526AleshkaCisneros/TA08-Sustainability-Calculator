@@ -85,6 +85,12 @@ function isChristmasHoliday(date) {
   return false;
 }
 
+function isSummerHoliday(date) {
+  const month = date.getMonth() + 1;
+  return month === 7 || month === 8; // julio o agosto
+}
+
+
 // Semana Santa en Cataluña: 10 días incluyendo Lunes de Pascua
 function isHolyWeek(date) {
   const year = date.getFullYear();
@@ -125,10 +131,11 @@ function applyTrends(category, startDate, endDate) {
     const month = d.getMonth() + 1;
 
     // Vacaciones (Navidad o Semana Santa)
-    if (isChristmasHoliday(d) || isHolyWeek(d)) {
+    if (isChristmasHoliday(d) || isHolyWeek(d) || isSummerHoliday(d)) {
       totalFactor += holidayFactor;
       continue;
     }
+
 
     if (category === "electricity") {
       totalFactor += electricityMonthFactor[month];
