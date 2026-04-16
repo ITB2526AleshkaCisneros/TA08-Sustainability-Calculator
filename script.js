@@ -235,5 +235,21 @@ calculateBtn.addEventListener("click", () => {
   showTips(category);
 });
 
-// (Opcional) Debug: listar vacaciones de un año en consola
+
+// Show current date in the top-right corner
+function updateDateTop() {
+  const dateElement = document.getElementById("currentDate");
+  const today = new Date();
+
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  };
+
+  dateElement.textContent = today.toLocaleDateString("en-EN", options);
+}
+
+updateDateTop();
 // listHolidaysForYear(2026);
