@@ -248,7 +248,7 @@ function updateDateTop() {
     day: "numeric"
   };
 
-  dateElement.textContent = today.toLocaleDateString("es-ES", options);
+  dateElement.textContent = today.toLocaleDateString("en-EN", options);
 }
 
 updateDateTop();
