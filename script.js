@@ -198,7 +198,7 @@ calculateBtn.addEventListener("click", () => {
 function updateDateTop() {
   const dateElement = document.getElementById("currentDate");
   const today = new Date();
-  dateElement.textContent = today.toLocaleDateString("en-EN", {
+  dateElement.textContent = today.toLocaleDateString("es-ES", {
     weekday: "long", year: "numeric", month: "long", day: "numeric"
   });
 }
