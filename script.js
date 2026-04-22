@@ -139,6 +139,66 @@ function showTips(category) {
   if (category === "cleaning") tipsCleaning.classList.remove("hidden");
 }
 
+const improvementContent = document.getElementById("improvementContent");
+
+const improvementPlans = {
+  electricity: `
+    <h3>⚡ Electricity – 30% Reduction Plan</h3>
+    <ul>
+      <li>Replace all lighting with LED technology.</li>
+      <li>Install motion sensors in low‑use areas.</li>
+      <li>Optimise heating/AC schedules and reduce standby consumption.</li>
+      <li>Replace old appliances with A+++ efficiency models.</li>
+      <li>Educate staff/students on switching off unused equipment.</li>
+    </ul>
+  `,
+
+  water: `
+    <h3>💧 Water – 30% Reduction Plan</h3>
+    <ul>
+      <li>Install low‑flow taps and dual‑flush toilets.</li>
+      <li>Repair leaks within 24 hours.</li>
+      <li>Use greywater for cleaning when possible.</li>
+      <li>Optimise irrigation schedules and avoid watering at midday.</li>
+      <li>Raise awareness about responsible water use.</li>
+    </ul>
+  `,
+
+  office: `
+    <h3>📄 Office Supplies – 30% Reduction Plan</h3>
+    <ul>
+      <li>Digitise documents and reduce printing by default.</li>
+      <li>Use recycled paper and double‑sided printing.</li>
+      <li>Reuse folders, binders and classroom materials.</li>
+      <li>Centralise printing to reduce unnecessary copies.</li>
+      <li>Promote paperless workflows among staff and students.</li>
+    </ul>
+  `,
+
+  cleaning: `
+    <h3>🧼 Cleaning Products – 30% Reduction Plan</h3>
+    <ul>
+      <li>Use concentrated cleaning products to reduce packaging.</li>
+      <li>Switch to refillable containers.</li>
+      <li>Optimise cleaning schedules based on real needs.</li>
+      <li>Train staff on correct product dosage.</li>
+      <li>Choose eco‑labelled products with lower environmental impact.</li>
+    </ul>
+  `
+};
+
+function updateImprovementPlan(category) {
+  improvementContent.innerHTML = improvementPlans[category];
+}
+
+// Actualizar plan de reducción cuando cambia la categoría
+categorySelect.addEventListener("change", () => {
+  updateImprovementPlan(categorySelect.value);
+});
+
+
+
+
 function monthsBetween(start, end) {
   if (!start || !end) return 0;
   const [sy, sm] = start.split("-").map(Number);
@@ -192,6 +252,8 @@ calculateBtn.addEventListener("click", () => {
   resultNote.textContent = note;
 
   showTips(category);
+  calculateBtn.addEventListener("click", () => {
+
 });
 
 // Fecha en la esquina superior
