@@ -187,14 +187,74 @@ const improvementPlans = {
   `
 };
 
+const measures = {
+  electricity: [
+    { text: "Double the number of solar panels (from 50% to 100% self‑sufficiency)", reduction: 0.25 },
+    { text: "Install motion sensors in classrooms and offices", reduction: 0.10 },
+    { text: "Replace old appliances with A+++ efficiency models", reduction: 0.12 },
+    { text: "Optimise heating/AC schedules", reduction: 0.15 },
+    { text: "Reduce standby consumption (computers, projectors…)", reduction: 0.08 }
+  ],
+
+  water: [
+    { text: "Install low‑flow taps and dual‑flush toilets", reduction: 0.18 },
+    { text: "Repair leaks within 24 hours", reduction: 0.12 },
+    { text: "Reuse greywater for cleaning", reduction: 0.15 },
+    { text: "Optimise irrigation schedules", reduction: 0.10 },
+    { text: "Awareness campaigns for responsible water use", reduction: 0.05 }
+  ],
+
+  office: [
+    { text: "Digitise documents and reduce printing", reduction: 0.20 },
+    { text: "Use recycled paper and double‑sided printing", reduction: 0.10 },
+    { text: "Reuse folders and classroom materials", reduction: 0.08 },
+    { text: "Centralise printing to reduce unnecessary copies", reduction: 0.12 },
+    { text: "Promote paperless workflows", reduction: 0.15 }
+  ],
+
+  cleaning: [
+    { text: "Use concentrated cleaning products", reduction: 0.18 },
+    { text: "Switch to refillable containers", reduction: 0.12 },
+    { text: "Optimise cleaning schedules", reduction: 0.10 },
+    { text: "Train staff on correct product dosage", reduction: 0.15 },
+    { text: "Choose eco‑labelled low‑impact products", reduction: 0.08 }
+  ]
+};
+
+
 function updateImprovementPlan(category) {
   improvementContent.innerHTML = improvementPlans[category];
 }
 
+const measuresContainer = document.getElementById("measuresContainer");
+
+function updateMeasures(category) {
+  const list = measures[category];
+
+  measuresContainer.innerHTML = `
+    <h3>Select reduction measures</h3>
+    <p>Choose the actions you want to apply:</p>
+    <ul class="measures-list">
+      ${list.map((m, i) => `
+        <li>
+          <label>
+            <input type="checkbox" class="measureCheck" data-reduction="${m.reduction}">
+            ${m.text} <span style="color:var(--accent)">(${Math.round(m.reduction * 100)}%)</span>
+          </label>
+        </li>
+      `).join("")}
+    </ul>
+  `;
+}
+
+
 // Actualizar plan de reducción cuando cambia la categoría
 categorySelect.addEventListener("change", () => {
-  updateImprovementPlan(categorySelect.value);
+  const category = categorySelect.value;
+  updateImprovementPlan(category);
+  updateMeasures(category);
 });
+
 
 
 
@@ -252,9 +312,11 @@ calculateBtn.addEventListener("click", () => {
   resultNote.textContent = note;
 
   showTips(category);
-  calculateBtn.addEventListener("click", () => {
-
+  updateImprovementPlan(category);
+  updateMeasures(category);
 });
+
+
 
 // Fecha en la esquina superior
 function updateDateTop() {
@@ -276,11 +338,24 @@ applyReductionBtn.addEventListener("click", () => {
   const number = parseFloat(currentText.replace(/[^0-9.]/g, ""));
 
   if (isNaN(number)) {
-    reductionResult.textContent = "Calcula primero un consumo.";
+    reductionResult.textContent = "Calculate a consumption first.";
     return;
   }
 
-  const reduced = number * 0.70;
+  const checks = document.querySelectorAll(".measureCheck:checked");
+
+  if (checks.length === 0) {
+    reductionResult.textContent = "Select at least one measure.";
+    return;
+  }
+
+  let totalReduction = 0;
+  checks.forEach(c => totalReduction += parseFloat(c.dataset.reduction));
+
+  if (totalReduction > 0.70) totalReduction = 0.70;
+
+  const reduced = number * (1 - totalReduction);
+
   reductionResult.textContent =
-    `Nuevo consumo tras aplicar mejoras: ${Math.round(reduced).toLocaleString("en-GB")}`;
+    `New consumption after measures: ${Math.round(reduced).toLocaleString("en-GB")} (−${Math.round(totalReduction * 100)}%)`;
 });
