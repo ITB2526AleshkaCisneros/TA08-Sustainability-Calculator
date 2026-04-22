@@ -204,3 +204,21 @@ function updateDateTop() {
 }
 
 updateDateTop();
+
+// Aplicar reducción del 30%
+const applyReductionBtn = document.getElementById("applyReductionBtn");
+const reductionResult = document.getElementById("reductionResult");
+
+applyReductionBtn.addEventListener("click", () => {
+  const currentText = resultValue.textContent;
+  const number = parseFloat(currentText.replace(/[^0-9.]/g, ""));
+
+  if (isNaN(number)) {
+    reductionResult.textContent = "Calcula primero un consumo.";
+    return;
+  }
+
+  const reduced = number * 0.70;
+  reductionResult.textContent =
+    `Nuevo consumo tras aplicar mejoras: ${Math.round(reduced).toLocaleString("en-GB")}`;
+});
