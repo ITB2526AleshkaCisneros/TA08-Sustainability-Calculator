@@ -373,3 +373,39 @@ select[disabled],
   margin-top: 1rem;
 }
 
+.navbar {
+  width: 100%;
+  background: rgba(15, 23, 42, 0.85);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+  padding: 0.6rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(6px);
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+}
+
+.navbar a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease;
+}
+
+.navbar a:hover {
+  color: var(--accent);
+}
+
+.reduction-details {
+  grid-column: 1 / -1;
+  margin-top: 1.5rem;
+}

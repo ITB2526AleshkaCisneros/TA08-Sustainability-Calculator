@@ -9,10 +9,17 @@
     <h1>Energy & Sustainability Calculator</h1>
     <p>Estimate consumption and learn how to reduce it.</p>
   </header>
+  <nav class="navbar">
+  <ul>
+    <li><a href="#calculator">Calculator</a></li>
+    <li><a href="#reductionDetails">Reduction Plan Details</a></li>
+  </ul>
+</nav>
+
 
 <div class="date-top" id="currentDate"></div>
 
-  <main class="container">
+  <main class="container" id="calculator">
     <section class="card">
       <h2>Calculation options</h2>
 
@@ -99,6 +106,36 @@
   <button id="applyReductionBtn" class="btn">Apply reduction measures</button>
   <div id="reductionResult" class="result-note"></div>
 </section>
+    <section class="card reduction-details" id="reductionDetails">
+  <h2>Detailed Reduction Plan</h2>
+  <p>
+    This section explains in depth how the reduction measures work, how savings are calculated,
+    and how the school can progressively reach a 70% reduction in consumption.
+  </p>
+
+  <h3>How the reduction model works</h3>
+  <ul>
+    <li>Each category (electricity, water, office, cleaning) has 5 measures.</li>
+    <li>Each measure has a different impact (weight) on consumption.</li>
+    <li>The user selects the measures they want to implement.</li>
+    <li>The calculator applies the combined reduction (up to a maximum of 70%).</li>
+  </ul>
+
+  <h3>Why 70% is achievable</h3>
+  <p>
+    The combination of structural improvements (solar panels, low‑flow taps, digitalisation)
+    and behavioural changes (awareness, correct usage) allows the school to reach a realistic
+    70% reduction over several years.
+  </p>
+
+  <h3>Implementation timeline</h3>
+  <ul>
+    <li><strong>Year 1:</strong> Quick wins (LED, sensors, leak repairs, digitalisation)</li>
+    <li><strong>Year 2:</strong> Optimisation and monitoring</li>
+    <li><strong>Year 3:</strong> Structural upgrades and consolidation</li>
+  </ul>
+</section>
+
   </main>
 
 <footer class="footer">
