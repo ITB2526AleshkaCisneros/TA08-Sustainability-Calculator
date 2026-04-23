@@ -300,13 +300,8 @@ function calculate() {
 
 // Actualizar plan de reducción cuando cambia la categoría
 categorySelect.addEventListener("change", () => {
-  const category = categorySelect.value;
-  updateImprovementPlan(category);
-  updateMeasures(category);
+  calculate();
 });
-
-
-
 
 
 function monthsBetween(start, end) {
@@ -317,7 +312,6 @@ function monthsBetween(start, end) {
 }
 
 calculateBtn.addEventListener("click", calculate);
-categorySelect.addEventListener("change", calculate);
 calcTypeSelect.addEventListener("change", calculate);
 startPeriodInput.addEventListener("change", calculate);
 endPeriodInput.addEventListener("change", calculate);
