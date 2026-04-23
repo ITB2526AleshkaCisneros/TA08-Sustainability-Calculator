@@ -263,7 +263,7 @@ function calculate() {
     const start = new Date(year, 0, 1);
     const end = new Date(year, 11, 31);
 
-    const factor = applyTrends(category, start, end) * randomFactor(0.05);
+    const factor = applyTrends(category, start, end);
     value = base * factor;
     note = "Estimated annual consumption based on trends, holidays and variability.";
   } else {
@@ -282,7 +282,7 @@ function calculate() {
     end.setMonth(end.getMonth() + 1);
     end.setDate(0);
 
-    const factor = applyTrends(category, start, end) * randomFactor(0.05);
+    const factor = applyTrends(category, start, end);
     value = base * (factor * (months / 12));
     note = `Estimated consumption for a period of ${months} month(s), considering trends and holidays.`;
   }
@@ -315,7 +315,6 @@ function monthsBetween(start, end) {
 }
 
 calculateBtn.addEventListener("click", calculate);
-calcTypeSelect.addEventListener("change", calculate);
 startPeriodInput.addEventListener("change", calculate);
 endPeriodInput.addEventListener("change", calculate);
 
