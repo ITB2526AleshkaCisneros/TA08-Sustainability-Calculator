@@ -110,25 +110,23 @@ function randomFactor(range) {
 
 // Tendencias por día
 function applyTrends(category, startDate, endDate) {
+  const startMonth = startDate.getMonth() + 1;
+  const endMonth = endDate.getMonth() + 1;
+
   let totalFactor = 0;
-  let days = 0;
+  let months = 0;
 
-  for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-    days++;
-    const month = d.getMonth() + 1;
-
-    if (isChristmasHoliday(d) || isHolyWeek(d) || isSummerHoliday(d)) {
-      totalFactor += holidayFactor;
-      continue;
-    }
-
-    if (category === "electricity") totalFactor += electricityMonthFactor[month];
-    else if (category === "water") totalFactor += waterMonthFactor[month];
+  for (let m = startMonth; m <= endMonth; m++) {
+    if (category === "electricity") totalFactor += electricityMonthFactor[m];
+    else if (category === "water") totalFactor += waterMonthFactor[m];
     else totalFactor += 1;
+
+    months++;
   }
 
-  return days === 0 ? 1 : totalFactor / days;
+  return totalFactor / months;
 }
+
 
 function showTips(category) {
   tipsElectricity.classList.add("hidden");
