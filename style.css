@@ -366,8 +366,10 @@ select[disabled],
 }
 
 #reductionResult {
-  margin-top: 0.8rem;
-  font-size: 0.95rem;
-  color: var(--muted);
+  font-size: 1.4rem !important;
+  font-weight: 700;
+  color: var(--accent);
   text-align: center;
+  margin-top: 1rem;
 }
+
