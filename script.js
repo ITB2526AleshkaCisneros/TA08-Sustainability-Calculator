@@ -258,8 +258,9 @@ function calculate() {
 
   if (calcType === "nextYear") {
     const year = new Date().getFullYear();
-    const start = new Date(year, 0, 1);
-    const end = new Date(year, 11, 31);
+    const start = new Date(Date.UTC(year, 0, 1));
+    const end = new Date(Date.UTC(year, 11, 31));
+
 
     const factor = applyTrends(category, start, end);
     value = base * factor;
