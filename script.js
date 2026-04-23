@@ -251,6 +251,8 @@ function updateMeasures(category) {
 function calculate() {
   const category = categorySelect.value;
   const calcType = calcTypeSelect.value;
+  if (!category || !calcType) return;
+
   const base = baseValues[category];
 
   let value = 0;
