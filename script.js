@@ -359,3 +359,18 @@ applyReductionBtn.addEventListener("click", () => {
   reductionResult.textContent =
     `New consumption after measures: ${Math.round(reduced).toLocaleString("en-GB")} (−${Math.round(totalReduction * 100)}%)`;
 });
+
+const calculatorPage = document.getElementById("calculatorPage");
+const detailsPage = document.getElementById("detailsPage");
+
+document.getElementById("navCalculator").addEventListener("click", () => {
+  calculatorPage.style.display = "grid";
+  detailsPage.style.display = "none";
+  window.scrollTo(0, 0);
+});
+
+document.getElementById("navDetails").addEventListener("click", () => {
+  calculatorPage.style.display = "none";
+  detailsPage.style.display = "block";
+  window.scrollTo(0, 0);
+});
