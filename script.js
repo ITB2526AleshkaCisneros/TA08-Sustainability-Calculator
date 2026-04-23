@@ -247,26 +247,7 @@ function updateMeasures(category) {
   `;
 }
 
-
-// Actualizar plan de reducción cuando cambia la categoría
-categorySelect.addEventListener("change", () => {
-  const category = categorySelect.value;
-  updateImprovementPlan(category);
-  updateMeasures(category);
-});
-
-
-
-
-
-function monthsBetween(start, end) {
-  if (!start || !end) return 0;
-  const [sy, sm] = start.split("-").map(Number);
-  const [ey, em] = end.split("-").map(Number);
-  return (ey - sy) * 12 + (em - sm) + 1;
-}
-
-calculateBtn.addEventListener("click", () => {
+function calculate() {
   const category = categorySelect.value;
   const calcType = calcTypeSelect.value;
   const base = baseValues[category];
@@ -314,7 +295,32 @@ calculateBtn.addEventListener("click", () => {
   showTips(category);
   updateImprovementPlan(category);
   updateMeasures(category);
+}
+
+
+// Actualizar plan de reducción cuando cambia la categoría
+categorySelect.addEventListener("change", () => {
+  const category = categorySelect.value;
+  updateImprovementPlan(category);
+  updateMeasures(category);
 });
+
+
+
+
+
+function monthsBetween(start, end) {
+  if (!start || !end) return 0;
+  const [sy, sm] = start.split("-").map(Number);
+  const [ey, em] = end.split("-").map(Number);
+  return (ey - sy) * 12 + (em - sm) + 1;
+}
+
+calculateBtn.addEventListener("click", calculate);
+categorySelect.addEventListener("change", calculate);
+calcTypeSelect.addEventListener("change", calculate);
+startPeriodInput.addEventListener("change", calculate);
+endPeriodInput.addEventListener("change", calculate);
 
 
 
