@@ -25,7 +25,10 @@ calcTypeSelect.addEventListener("change", () => {
     startPeriodInput.classList.remove("disabled-input");
     endPeriodInput.classList.remove("disabled-input");
   }
+
+  calculate(); // 🔥 recalcula automáticamente
 });
+
 
 // Base values (aprox)
 const baseValues = {
