@@ -87,8 +87,38 @@
 </section>
   </main>
 <section class="container card reduction-details" id="detailsPage" style="display:none;">
-  <h2>Detailed Reduction Plan</h2>
-  <p>This section explains in depth how the reduction measures work...</p>
+<h2>Detailed Reduction Plan</h2>
+<p>
+  This section explains how the calculator estimates consumption, how seasonal and operational factors are integrated, and how the 3‑year reduction plan is applied to generate realistic long‑term savings.
+</p>
+
+<h4>Seasonal Trends</h4>
+<p>Consumption varies naturally throughout the year. The model includes:</p>
+
+<h5>Electricity</h5>
+<ul>
+  <li>Higher consumption in December, January and February due to heating.</li>
+  <li>Higher consumption in May, June, September and October due to air conditioning.</li>
+</ul>
+
+<h5>Water</h5>
+<ul>
+  <li>Increased consumption in May, June, September and October due to higher temperatures and irrigation needs.</li>
+</ul>
+
+<p>These variations are applied through monthly factors specific to each category.</p>
+
+<h4>Holiday Periods (Low Activity)</h4>
+<p>During school closures, consumption drops significantly. The calculator automatically reduces consumption during:</p>
+
+<ul>
+  <li><strong>Christmas Break (21 December → 8 January):</strong> Only essential systems remain active (mainly the datacenter).</li>
+  <li><strong>Easter Break:</strong> The date changes every year, so the calculator uses the astronomical Meeus algorithm to determine Easter and apply a full week of reduced activity.</li>
+</ul>
+
+<p>This ensures the model reflects the real behaviour of the institution.</p>
+
+  
 <img src="img/Start_point.png" alt="3-Year Reduction Plan Roadmap" class="reduction-image">
   <h3>How the reduction model works</h3>
   <ul>
