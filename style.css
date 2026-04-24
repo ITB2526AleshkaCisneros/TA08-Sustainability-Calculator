@@ -365,13 +365,6 @@ select[disabled],
   font-weight: 600;
 }
 
-#reductionResult {
-  font-size: 1.4rem !important;
-  font-weight: 700;
-  color: var(--accent);
-  text-align: center;
-  margin-top: 1rem;
-}
 
 .navbar {
   width: 100%;
@@ -443,6 +436,7 @@ select[disabled],
 
 
 
+
 #reductionResultFinal {
   margin-top: 0.5rem;
   font-size: 1.8rem;
@@ -456,7 +450,7 @@ select[disabled],
   margin-top: 1rem;
   font-size: 1.2rem;
   font-weight: 700; /* match h2 weight */
-  color: var(--text);
+  color: var(--text); 
   text-transform: uppercase;
   letter-spacing: 0.06em;
   text-align: left;
