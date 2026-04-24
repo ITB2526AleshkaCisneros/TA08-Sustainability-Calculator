@@ -13,6 +13,7 @@ const tipsCleaning = document.getElementById("tipsCleaning");
 
 // Desactivar/activar selección de meses según tipo de cálculo
 calcTypeSelect.addEventListener("change", () => {
+  clearReducedResult();
   const isNextYear = calcTypeSelect.value === "nextYear";
 
   startPeriodInput.disabled = isNextYear;
@@ -304,6 +305,7 @@ function calculate() {
 
 // Actualizar plan de reducción cuando cambia la categoría
 categorySelect.addEventListener("change", () => {
+  clearReducedResult();
   calculate();
 });
 
@@ -316,8 +318,16 @@ function monthsBetween(start, end) {
 }
 
 calculateBtn.addEventListener("click", calculate);
-startPeriodInput.addEventListener("change", calculate);
-endPeriodInput.addEventListener("change", calculate);
+startPeriodInput.addEventListener("change", () => {
+  clearReducedResult();
+  calculate();
+});
+
+endPeriodInput.addEventListener("change", () => {
+  clearReducedResult();
+  calculate();
+});
+
 
 
 
@@ -384,6 +394,7 @@ const calculatorPage = document.getElementById("calculatorPage");
 const detailsPage = document.getElementById("detailsPage");
 
 document.getElementById("navCalculator").addEventListener("click", () => {
+  clearReducedResult();
   calculatorPage.style.display = "grid";
   detailsPage.style.display = "none";
   window.scrollTo(0, 0);
@@ -458,6 +469,17 @@ function generateMonthlyConsumption(maxReduction) {
 
   return data;
 }
+
+
+
+function clearReducedResult() {
+  const reductionTitle = document.getElementById("reductionTitle");
+  const reductionResultFinal = document.getElementById("reductionResultFinal");
+
+  reductionTitle.textContent = "";
+  reductionResultFinal.textContent = "";
+}
+
 
 
 const reductionData = {
