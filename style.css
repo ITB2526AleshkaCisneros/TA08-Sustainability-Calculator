@@ -311,7 +311,7 @@ select[disabled],
 /* Improvement card */
 .improvement-card {
   grid-column: 1 / -1;
-  margin-top: 1rem;
+  margin-top: 0rem;
   padding: 1.7rem 1.9rem;
   background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.9));
   border-radius: var(--radius);
@@ -437,3 +437,6 @@ select[disabled],
   display: none !important;
 }
 
+.container {
+  margin-top: 1.5rem;
+}
