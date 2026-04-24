@@ -410,6 +410,22 @@ select[disabled],
   margin-top: 1.5rem;
 }
 
+#reductionChart {
+  width: 100% !important;
+  height: 320px !important;
+  max-height: 320px !important;
+  display: block;
+}
+.reduction-details {
+  overflow: hidden;
+}
+.reduction-details {
+  overflow: visible;
+}
+
+
+
+
 #calculateBtn {
   display: none !important;
   margin: 0 !important;
