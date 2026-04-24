@@ -4,6 +4,11 @@
   <title>Energy & Sustainability Calculator</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/en.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/index.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/style.css">
 </head>
 <body lang="en">
   <header class="header">
@@ -48,8 +53,8 @@
       <div class="form-group period-group">
         <label>Select a period of time</label>
         <div class="period-inputs">
-          <input type="month" id="startPeriod" lang="en" />
-          <input type="month" id="endPeriod" lang="en" />
+          <input type="text" id="startPeriod" class="month-input" placeholder="End Date">
+          <input type="text" id="endPeriod" class="month-input" placeholder="Start Date">
         </div>
       </div>
 
