@@ -359,8 +359,17 @@ applyReductionBtn.addEventListener("click", () => {
 
   const reduced = number * (1 - totalReduction);
 
-  reductionResult.textContent =
-    `New consumption after measures: ${Math.round(reduced).toLocaleString("en-GB")} (−${Math.round(totalReduction * 100)}%)`;
+ // Clear old message in the 30% card
+reductionResult.textContent = "";
+
+// Update the Result card
+const reductionTitle = document.getElementById("reductionTitle");
+const reductionResultFinal = document.getElementById("reductionResultFinal");
+
+reductionTitle.textContent = "New consumption:";
+reductionResultFinal.textContent =
+  `${Math.round(reduced).toLocaleString("en-GB")} (−${Math.round(totalReduction * 100)}%)`;
+
 });
 
 const calculatorPage = document.getElementById("calculatorPage");
