@@ -366,9 +366,17 @@ reductionResult.textContent = "";
 const reductionTitle = document.getElementById("reductionTitle");
 const reductionResultFinal = document.getElementById("reductionResultFinal");
 
+// Determine the correct unit again
+const category = categorySelect.value;
+const unit =
+  category === "electricity" ? "kWh" :
+  category === "water" ? "L" :
+  "units / €";
+
+// Update the Result card
 reductionTitle.textContent = "New consumption:";
 reductionResultFinal.textContent =
-  `${Math.round(reduced).toLocaleString("en-GB")} (−${Math.round(totalReduction * 100)}%)`;
+  `${Math.round(reduced).toLocaleString("en-GB")} ${unit} (−${Math.round(totalReduction * 100)}%)`;
 
 });
 
