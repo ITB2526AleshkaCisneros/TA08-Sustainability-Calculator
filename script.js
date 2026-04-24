@@ -359,7 +359,7 @@ applyReductionBtn.addEventListener("click", () => {
 
   const reduced = number * (1 - totalReduction);
 
- // Clear old message in the 30% card
+// Clear old message in the 30% card
 reductionResult.textContent = "";
 
 // Update the Result card
