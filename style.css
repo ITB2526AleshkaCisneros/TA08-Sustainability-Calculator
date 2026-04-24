@@ -440,3 +440,39 @@ select[disabled],
 .container {
   margin-top: 1.5rem;
 }
+
+
+
+#reductionResultFinal {
+  margin-top: 0.5rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-align: center;
+}
+
+/* Title for the reduced result */
+.result-subtitle {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: 700; /* match h2 weight */
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-align: left;
+}
+
+
+/* Number for the reduced result */
+#reductionResultFinal {
+  margin-top: 0.3rem;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-align: center;
+}
+
+
+
+
+
