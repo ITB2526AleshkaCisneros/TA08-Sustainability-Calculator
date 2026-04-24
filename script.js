@@ -376,4 +376,150 @@ document.getElementById("navDetails").addEventListener("click", () => {
   calculatorPage.style.display = "none";
   detailsPage.style.display = "block";
   window.scrollTo(0, 0);
+  initReductionChart();
 });
+
+
+
+
+let reductionChart = null;
+
+function generateMonthlyReduction(maxReduction) {
+  const months = 36;
+  const data = [];
+  for (let i = 0; i < months; i++) {
+    const yearProgress = i / (months - 1);
+    let value = maxReduction * yearProgress;
+
+    const month = (i % 12) + 1;
+
+    if (month === 12 || month <= 2) value *= 1.05;
+    if ([5, 6, 9, 10].includes(month)) value *= 1.03;
+
+    value *= 1 + (Math.random() * 0.04 - 0.02);
+
+    data.push(parseFloat(value.toFixed(2)));
+  }
+  return data;
+}
+function generateMonthlyConsumption(maxReduction) {
+  const months = 36;
+  const data = [];
+  let current = 100; // 100% baseline consumption
+
+  for (let i = 0; i < months; i++) {
+    const month = (i % 12) + 1;
+    const yearProgress = i / (months - 1);
+
+    // Target consumption after reduction
+    const target = 100 - (maxReduction * yearProgress);
+
+    // Seasonal effects (positive = more consumption)
+    let seasonal = 0;
+
+    // Winter (heating)
+    if (month === 12 || month <= 2) seasonal += 5;
+
+    // Warm months (AC or water use)
+    if ([5, 6, 9, 10].includes(month)) seasonal += 3;
+
+    // Random noise (±3%)
+    const noise = (Math.random() * 6) - 3;
+
+    // Pull towards target (smooth descent)
+    const pull = (target - current) * 0.25;
+
+    // Apply changes
+    current += pull + seasonal + noise;
+
+    // Clamp values
+    if (current < 100 - maxReduction) current = 100 - maxReduction;
+    if (current > 100) current = 100;
+
+    data.push(parseFloat(current.toFixed(2)));
+  }
+
+  return data;
+}
+
+
+const reductionData = {
+  labels: Array.from({ length: 36 }, (_, i) => {
+    const month = (i % 12) + 1;
+    const year = Math.floor(i / 12) + 1;
+    return month === 1 ? `Year ${year}` : `M${month}`;
+  }),
+  datasets: [
+    {
+      label: "Electricity",
+      data: generateMonthlyConsumption(70),
+      borderColor: "#22c55e",
+      backgroundColor: "rgba(34, 197, 94, 0.25)",
+      tension: 0.4
+    },
+    {
+      label: "Water",
+      data: generateMonthlyConsumption(60),
+      borderColor: "#38bdf8",
+      backgroundColor: "rgba(56, 189, 248, 0.25)",
+      tension: 0.4
+    },
+    {
+      label: "Office supplies",
+      data: generateMonthlyConsumption(65),
+      borderColor: "#f97316",
+      backgroundColor: "rgba(249, 115, 22, 0.25)",
+      tension: 0.4
+    },
+    {
+      label: "Cleaning products",
+      data: generateMonthlyConsumption(63),
+      borderColor: "#e11d48",
+      backgroundColor: "rgba(225, 29, 72, 0.25)",
+      tension: 0.4
+    }
+  ]
+};
+
+
+
+
+function initReductionChart() {
+  const ctx = document.getElementById("reductionChart");
+  if (!ctx) return;
+
+  if (reductionChart !== null) {
+    reductionChart.destroy();
+  }
+
+  reductionChart = new Chart(ctx, {
+    type: "line",
+    data: reductionData,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: false,
+      plugins: {
+        legend: {
+          labels: { color: "#e5e7eb" }
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: "#9ca3af" },
+          grid: { color: "rgba(148,163,184,0.2)" }
+        },
+       y: {
+  ticks: {
+    color: "#9ca3af",
+    callback: v => v + "%"
+  },
+  grid: { color: "rgba(148,163,184,0.2)" },
+  suggestedMin: 0,
+  suggestedMax: 100
+}
+
+      }
+    }
+  });
+}
