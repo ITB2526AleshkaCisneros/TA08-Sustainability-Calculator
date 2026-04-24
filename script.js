@@ -523,3 +523,19 @@ function initReductionChart() {
     }
   });
 }
+
+
+
+
+
+
+
+// Bloquear meses anteriores a 2024
+function lockMinimumDate() {
+  const min = "2024-01";
+
+  startPeriodInput.min = min;
+  endPeriodInput.min = min;
+}
+
+lockMinimumDate();
