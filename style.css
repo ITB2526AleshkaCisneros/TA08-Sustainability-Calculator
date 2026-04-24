@@ -608,3 +608,74 @@ select[disabled],
   }
 }
 
+/* FULL MOBILE RESPONSIVE FIX */
+@media (max-width: 600px) {
+
+  body {
+    font-size: 16px;
+  }
+
+  .header {
+    padding: 1.5rem 1rem 1rem;
+  }
+
+  .header h1 {
+    font-size: 1.6rem;
+  }
+
+  .container {
+    grid-template-columns: 1fr !important;
+    gap: 1.2rem;
+    padding: 0 0.8rem;
+  }
+
+  .card {
+    padding: 1.2rem 1.1rem;
+  }
+
+  .result-card {
+    max-width: 100% !important;
+    padding: 1rem 1rem !important;
+  }
+
+  .result-value {
+    font-size: 1.9rem !important;
+  }
+
+  #reductionResultFinal {
+    font-size: 1.9rem !important;
+  }
+
+  .result-subtitle {
+    font-size: 1rem !important;
+  }
+
+  .navbar ul {
+    gap: 1rem;
+  }
+
+  .navbar a {
+    font-size: 0.9rem;
+  }
+
+  .improvement-card {
+    padding: 1.2rem 1rem;
+  }
+
+  .improvement-card h2 {
+    font-size: 1.1rem;
+  }
+
+  .improvement-card h3 {
+    font-size: 1rem;
+  }
+
+  .improvement-card ul {
+    font-size: 0.85rem;
+  }
+
+  #reductionChart {
+    height: 240px !important;
+    max-height: 240px !important;
+  }
+}
