@@ -466,7 +466,11 @@ select[disabled],
   text-align: center;
 }
 
-
-
-
-
+.reduction-image {
+  width: 100%;
+  max-width: 900px;
+  display: block;
+  margin: 1.5rem auto;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
