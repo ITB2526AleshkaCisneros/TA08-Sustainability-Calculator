@@ -467,10 +467,11 @@ select[disabled],
 }
 
 .reduction-image {
-  width: 100%;
-  max-width: 900px;
+  width: 70%;
+  max-width: 600px;
   display: block;
-  margin: 1.5rem auto;
+  margin: 1.2rem auto 1.8rem;
   border-radius: 12px;
   box-shadow: var(--shadow);
+  opacity: 0.95;
 }
