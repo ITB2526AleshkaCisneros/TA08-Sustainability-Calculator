@@ -410,6 +410,17 @@ select[disabled],
   margin-top: 1.5rem;
 }
 
+
+
+
+#calculateBtn {
+  display: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 0 !important;
+}
+
+
 #reductionChart {
   width: 100% !important;
   height: 320px !important;
@@ -423,12 +434,3 @@ select[disabled],
   overflow: visible;
 }
 
-
-
-
-#calculateBtn {
-  display: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  height: 0 !important;
-}
