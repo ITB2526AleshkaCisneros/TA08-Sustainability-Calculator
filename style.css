@@ -475,3 +475,44 @@ select[disabled],
   box-shadow: var(--shadow);
   opacity: 0.95;
 }
+
+/* Timeline formatting */
+.reduction-details h3 {
+  font-size: 1.15rem;
+  margin-top: 1.8rem;
+  margin-bottom: 0.8rem;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.reduction-details h4 {
+  font-size: 1rem;
+  margin-top: 1.4rem;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+  letter-spacing: 0.03em;
+}
+
+.reduction-details h5 {
+  font-size: 0.95rem;
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+.reduction-details p {
+  font-size: 0.9rem;
+  color: var(--text);
+  margin-bottom: 0.6rem;
+  line-height: 1.45rem;
+}
+
+.reduction-details ul {
+  margin: 0.3rem 0 1rem 1.2rem;
+  padding: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.45rem;
+}
