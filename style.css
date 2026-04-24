@@ -516,3 +516,7 @@ select[disabled],
   font-size: 0.9rem;
   line-height: 1.45rem;
 }
+
+#reductionChart {
+  margin-top: 1.5rem;
+}
