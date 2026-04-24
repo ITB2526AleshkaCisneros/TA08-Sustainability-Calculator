@@ -433,3 +433,7 @@ select[disabled],
 }
 
 
+.tips-card {
+  display: none !important;
+}
+
