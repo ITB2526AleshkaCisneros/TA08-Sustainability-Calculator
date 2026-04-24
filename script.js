@@ -539,3 +539,28 @@ function lockMinimumDate() {
 }
 
 lockMinimumDate();
+
+
+
+
+
+
+
+
+flatpickr(".month-input", {
+  locale: "en",
+  dateFormat: "Y-m",
+  altInput: true,
+  altFormat: "F Y",
+  plugins: [
+    new monthSelectPlugin({
+      shorthand: true,
+      dateFormat: "Y-m",
+      altFormat: "F Y",
+      theme: "dark"
+    })
+  ],
+  minDate: "2024-01"
+});
+
+
